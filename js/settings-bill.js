@@ -1,5 +1,7 @@
 // get a reference to the sms or call radio buttons
 
+//var callTotalSettings = document.querySelector(".callTotalSettings");
+
 // get refences to all the settings fields
 
 //get a reference to the add button

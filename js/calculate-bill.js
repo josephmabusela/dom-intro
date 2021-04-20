@@ -1,13 +1,45 @@
-//get a reference to the calculate button
+var calculateBtn = document.querySelector(".calculateBtn");
+var billString = document.querySelector(".billString");
+var billTotals = document.querySelector(".billTotal");
 
-//get a reference to the billTotal element
+function totalPhoneBill(str){
+    
+  var strItems = str.split(",");
+  console.log(strItems);
+  
+  var total = 0;
+  
+  strItems.forEach(strItem => {
+    strItem.trim();
+      if (strItem === "call"){
+        total += 2.75;
+      }
+      else if (strItem === "sms"){
+        total += 0.75;
+      }
+  });
+  
+  return total;
+}
 
-//get a reference to the billString
+function totalButton(){
+    
+  var str = billString.value; 
+  var bill = totalPhoneBill(str);
+  
+  var roundNum = bill.toFixed(2);
 
-//create the function that will be called when the calculate button is pressed
-//  * this function should read the string value entered - split it on a comma.
-//  * loop over all the entries in the the resulting list
-//  * check if it is a call or an sms and add the right amount to the overall total
-//  * once done looping over all the entries - display the total onto the screen in the billTotal element
+  if (roundNum > 20.00) {
+    billTotals.classList.add("warning");
+  }
+  if (roundNum > 30.00){
+    billTotals.classList.add("danger");
+  }
+  else {
+    billTotals.classList.add("billTotals");
+  }
 
-//link the function to a click event on the calculate button
+  billTotals.innerHTML = roundNum;
+}
+
+calculateBtn.addEventListener("click", totalButton)
