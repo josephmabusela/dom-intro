@@ -43,6 +43,7 @@ function totalButton(){
   }
   if (roundNum < 20.00) {
     billTotals.classList.remove("warning");
+    billTotals.classList.remove("danger");
   }
   else {
     billTotals.classList.add("billTotals");   
