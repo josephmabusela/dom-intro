@@ -31,12 +31,21 @@ function totalButton(){
 
   if (roundNum > 20.00) {
     billTotals.classList.add("warning");
+    
   }
   if (roundNum > 30.00){
     billTotals.classList.add("danger");
+    billTotals.classList.remove("warning");
+
+  }
+  if (roundNum < 30.00){
+    billTotals.classList.remove("danger");
+  }
+  if (roundNum < 20.00) {
+    billTotals.classList.remove("warning");
   }
   else {
-    billTotals.classList.add("billTotals");
+    billTotals.classList.add("billTotals");   
   }
 
   billTotals.innerHTML = roundNum;
