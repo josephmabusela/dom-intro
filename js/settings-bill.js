@@ -28,12 +28,12 @@ var totalCall = 0;
 var totalSms = 0;
 var overallTotal = 0;
 
-//add an event listener for when the 'Update settings' button is pressed
-updateSettings.addEventListener("click", function() {
-    costCall = Number(callCostSetting.value);
-    costSms = Number(smsCostSetting.value);
-    warningLevel = Number(warningLevelSetting.value);
-    criticalLevel = Number(criticalLevelSetting.value);
+function updateBtn() {
+
+    costCall = callCostSetting.value;
+    costSms = smsCostSetting.value;
+    warningLevel = warningLevelSetting.value;
+    criticalLevel = criticalLevelSetting.value;
 
     if (overallTotal < warningLevel) {
         totalSettings.classList.remove("warning");
@@ -47,10 +47,10 @@ updateSettings.addEventListener("click", function() {
         totalSettings.classList.remove("warning");
         totalSettings.classList.add("danger");
     }
-});
+}
 
-//add an event listener for when the add button is pressed
-addButton.addEventListener("click", function(){
+function addBtn(){
+
     var radioButton = document.querySelector("input[name='billItemTypeWithSettings']:checked");
 
     if (overallTotal < criticalLevel) {
@@ -61,15 +61,16 @@ addButton.addEventListener("click", function(){
             totalCall += costCall
             overallTotal += costCall
         }
-        if (billItemTypeWithSettings === "sms"){
+        else if (billItemTypeWithSettings === "sms"){
             totalSms += costSms
             overallTotal += costSms
         }
     }
+    
     callTotalSettings.innerHTML = totalCall.toFixed(2);
     smsTotalSettings.innerHTML = totalSms.toFixed(2);
     totalSettings.innerHTML = overallTotal.toFixed(2);
-    
+
     if (overallTotal < warningLevel) {
         totalSettings.classList.remove("warning");
         totalSettings.classList.remove("danger");
@@ -82,7 +83,15 @@ addButton.addEventListener("click", function(){
         totalSettings.classList.remove("warning");
         totalSettings.classList.add("danger");
     }
-});
+}
+
+
+
+//add an event listener for when the 'Update settings' button is pressed
+updateSettings.addEventListener("click", updateBtn);
+
+//add an event listener for when the add button is pressed
+addButton.addEventListener("click", addBtn);
 
 //in the event listener get the value from the billItemTypeRadio radio buttons
 // * add the appropriate value to the call / sms total
