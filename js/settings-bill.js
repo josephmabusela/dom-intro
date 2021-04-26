@@ -1,3 +1,4 @@
+  
 // get a reference to the sms or call radio buttons
 var billItemTypeWithSettings = document.querySelector(".billItemTypeWithSettings");
 
@@ -34,6 +35,11 @@ function updateBtn() {
     costSms = smsCostSetting.value;
     warningLevel = warningLevelSetting.value;
     criticalLevel = criticalLevelSetting.value;
+
+    costCall = parseFloat(costCall);
+    costSms = parseFloat(costSms);
+    warningLevel = parseFloat(warningLevel);
+    criticalLevel = parseFloat(criticalLevel);
 
     if (overallTotal < warningLevel) {
         totalSettings.classList.remove("warning");
