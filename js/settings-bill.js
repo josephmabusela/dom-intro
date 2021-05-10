@@ -74,7 +74,7 @@ addButton.addEventListener("click", function() {
             totalCall += costCall
             overallTotal += costCall
         }
-        else if (billItemTypeWithSettings === "sms"){
+        if (billItemTypeWithSettings === "sms"){
             totalSms += costSms
             overallTotal += costSms
         }
