@@ -18,85 +18,66 @@ var addButton = document.querySelector(".addButton");
 //get a reference to the 'Update settings' button
 var updateSettings = document.querySelector(".updateSettings");
 
+var settingsBillInstance = BillSettings();
+//alert(settingsBillInstance);
+
 // create a variables that will keep track of all the settings
-var costCall = 0;
-var costSms = 0;
-var warningLevel = 0;
-var criticalLevel = 0;
+// var costCall = 0;
+// var costSms = 0;
+// var warningLevel = 0;
+// var criticalLevel = 0;
 
 // create a variables that will keep track of all three totals.
 var totalCall = 0;
 var totalSms = 0;
 var overallTotal = 0;
 
-// function updateBtn() {
-// }
-
-// function addBtn(){
-
-// }
-
 //add an event listener for when the 'Update settings' button is pressed
 updateSettings.addEventListener("click", function() {
-    costCall = callCostSetting.value;
-    costSms = smsCostSetting.value;
-    warningLevel = warningLevelSetting.value;
-    criticalLevel = criticalLevelSetting.value;
+    // costCall = callCostSetting.value;
+    // costSms = smsCostSetting.value;
+    // warningLevel = warningLevelSetting.value;
+    // criticalLevel = criticalLevelSetting.value;
 
-    costCall = parseFloat(costCall);
-    costSms = parseFloat(costSms);
-    warningLevel = parseFloat(warningLevel);
-    criticalLevel = parseFloat(criticalLevel);
+    settingsBillInstance.setCallCost(parseFloat(callCostSetting.value));
+    settingsBillInstance.setSmsCost(parseFloat(smsCostSetting.value));
+    settingsBillInstance.setWarning(parseFloat(warningLevelSetting.value));
+    settingsBillInstance.setCritical(parseFloat(criticalLevelSetting.value));
 
-    if (overallTotal < warningLevel) {
-        totalSettings.classList.remove("warning");
-        totalSettings.classList.remove("danger");
-    }
-    if (overallTotal >= warningLevel && overallTotal < criticalLevel) {
-        totalSettings.classList.add("warning");
-        totalSettings.classList.remove("danger");
-    }
-    if (overallTotal >= criticalLevel) {
-        totalSettings.classList.remove("warning");
-        totalSettings.classList.add("danger");
-    }
+    addClasses();
 });
 
 //add an event listener for when the add button is pressed
 addButton.addEventListener("click", function() {
     var radioButton = document.querySelector(".billItemTypeWithSettings:checked");
 
-    if (overallTotal < criticalLevel) {
-        if (radioButton) {
-            billItemTypeWithSettings = radioButton.value;
-        }
-        if (billItemTypeWithSettings === "call"){
-            totalCall += costCall
-            overallTotal += costCall
-        }
-        if (billItemTypeWithSettings === "sms"){
-            totalSms += costSms
-            overallTotal += costSms
-        }
+    if (radioButton) {
+        settingsBillInstance.billTotal(radioButton.value);
+    }
+
+    settingsBillInstance.getCallCost();
+    settingsBillInstance.getSmsCost();
+
+    if (settingsBillInstance.gettRadioInput() === "call") {
+        settingsBillInstance.makeCall();
+    }
+    if (settingsBillInstance.gettRadioInput() === "sms") {
+        settingsBillInstance.sendSms();
     }
     
-    callTotalSettings.innerHTML = totalCall.toFixed(2);
-    smsTotalSettings.innerHTML = totalSms.toFixed(2);
-    totalSettings.innerHTML = overallTotal.toFixed(2);
+    callTotalSettings.innerHTML = settingsBillInstance.getTotalCallCost().toFixed(2);
+    smsTotalSettings.innerHTML = settingsBillInstance.getTotalSmsCost().toFixed(2);
+    totalSettings.innerHTML = settingsBillInstance.getTotalCost().toFixed(2);
 
-    if (overallTotal < warningLevel) {
-        totalSettings.classList.remove("warning");
-        totalSettings.classList.remove("danger");
-    }
-    if (overallTotal >= warningLevel && overallTotal < criticalLevel) {
-        totalSettings.classList.add("warning");
-        totalSettings.classList.remove("danger");
-    }
-    if (overallTotal >= criticalLevel) {
-        totalSettings.classList.remove("warning");
-        totalSettings.classList.add("danger");
-    }
+    addClasses()
 });
+
+function addClasses() {
+    totalSettings.classList.remove("warning");
+    totalSettings.classList.remove("danger");
+
+    totalSettings.classList.add(settingsBillInstance.levels());
+}
 
 //in the event listener get the value from the billItemTypeRadio radio buttons
 // * add the appropriate value to the call / sms total

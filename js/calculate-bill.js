@@ -2,24 +2,31 @@ var calculateBtn = document.querySelector(".calculateBtn");
 var billString = document.querySelector(".billString");
 var billTotals = document.querySelector(".billTotal");
 
-function totalPhoneBill(str){
-    
-  var strItems = str.split(",");
-  console.log(strItems);
+var calculateInstance = totalPhoneBill(); 
+
+function totalPhoneBill(){
+
+  calculateInstance.setInputString(billString.value);
+  calculateInstance.billText();
   
-  var total = 0;
+  calculateBtn.innerHTML = calculateInstance.billTotal().toFixed(2);
+  billTotals.classList.add(calculateInstance.totallevel());
+  // var strItems = str.split(",");
+  // console.log(strItems);
   
-  strItems.forEach(strItem => {
-    strItem.trim();
-      if (strItem === "call"){
-        total += 2.75;
-      }
-      else if (strItem === "sms"){
-        total += 0.75;
-      }
-  });
+  // var total = 0;
   
-  return total;
+  // strItems.forEach(strItem => {
+  //   strItem.trim();
+  //     if (strItem === "call"){
+  //       total += 2.75;
+  //     }
+  //     else if (strItem === "sms"){
+  //       total += 0.75;
+  //     }
+  // });
+  
+  // return total;
 }
 
 function totalButton(){

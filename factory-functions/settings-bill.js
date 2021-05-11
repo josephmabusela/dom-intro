@@ -1,5 +1,6 @@
-  function billSettings(){
+  function BillSettings(){
 
+    var radioStr;
     var theCallCost = 0;
     var theSmsCost = 0;
     var warning = 0;
@@ -7,7 +8,15 @@
     var callCostTotal = 0;
     var smsCostTotal = 0;
     var totalCost = 0;
+
+    function setRadioInput(str) {
+        radioStr = str
+    }
     
+    function gettRadioInput() {
+        return radioStr
+    }
+
     function setCallCost(callCost){
         theCallCost = callCost;
     }
@@ -78,12 +87,23 @@
             return 'warning';
         }
         
-         else if (hasReachedCriticalLevel){
-            return 'critical';
+         else if (hasReachedCriticalLevel()){
+            return 'danger';
         } 
     }
 
+    function billTotal(billType) {
+
+        if (billType === "call") {
+            makeCall();
+        }
+        if (billType === "sms") {
+            sendSms();
+        }
+    }
+
     return{
+
         setCallCost,
         getCallCost,
         setSmsCost,
@@ -98,6 +118,9 @@
         getTotalCost,
         getTotalCallCost,
         getTotalSmsCost,
-        levels
+        levels,
+        billTotal,
+        setRadioInput,
+        gettRadioInput
     }
 }

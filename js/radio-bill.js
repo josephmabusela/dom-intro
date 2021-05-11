@@ -6,6 +6,8 @@ var totalTwo = document.querySelector(".totalTwo")
 //get a reference to the add button
 var radioBillAddBtn = document.querySelector(".radioBillAddBtn");
 
+var radioBillInstance = radioBill();
+
 //create a variable that will keep track of the total bill
 var callTotal = 0;
 var smsTotal = 0;
@@ -21,28 +23,43 @@ radioBillAddBtn.addEventListener("click", function() {
     var radioBtn = document.querySelector(".billItemTypeRadio:checked");
 
     if (radioBtn) {
-        var billItemTypeRadio = radioBtn.value;
+        radioBillInstance.setRadioInput(radioBtn.value);
+        //var billItemTypeRadio = radioBtn.value;
     }
 
-    if (billItemTypeRadio === "call") {
-        callTotal += 2.75;
+    if (radioBillInstance.gettRadioInput() === "call") {
+        radioBillInstance.makeCall();
         //callTotalTwo.innerHTML = callTotal.toFixed(2);
     }
-    if (billItemTypeRadio === "sms") {
+    if (radioBillInstance.gettRadioInput() === "sms") {
         //var currentSmsTotal = parseFloat(smsTotalTwo.innerHTML);
-        smsTotal +=  0.75;
+        radioBillInstance.sendSms();
         //smsTotalTwo.innerHTML = smsTotal.toFixed(2);
     }
     
-    callTotalTwo.innerHTML = callTotal.toFixed(2);
-    smsTotalTwo.innerHTML = smsTotal.toFixed(2);
-    billTotal = callTotal + smsTotal;
-    totalTwo.innerHTML = billTotal.toFixed(2);
+    callTotalTwo.innerHTML = radioBillInstance.getCallTotal().toFixed(2);
+    smsTotalTwo.innerHTML = radioBillInstance.getSmsTotal().toFixed(2);
+    totalTwo.innerHTML = radioBillInstance.radioTotal().toFixed(2);
 
-    if (billTotal > 30.00) {
-        totalTwo.classList.add("warning");
-    }
-    if (billTotal > 50.00) {
-        totalTwo.classList.add("danger");
-    }
+    totalTwo.classList.remove("warning");
+    totalTwo.classList.remove("danger");
+
+    totalTwo.classList.add(radioBillInstance.levels())
+    //billTotal = callTotal + smsTotal;
+
+    // if (billTotal > 30.00) {
+    //     totalTwo.classList.add("warning");
+    // }
+    // if (billTotal > 50.00) {
+    //     totalTwo.classList.add("danger");
+    // }
+
+    //addClasses()
 });
+
+// function addClasses() {
+//     totalTwo.classList.remove("warning");
+//     totalTwo.classList.remove("danger");
+
+//     totalTwo.classList.add(radioBillInstance.levels());
+// }
