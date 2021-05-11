@@ -2,31 +2,26 @@ var calculateBtn = document.querySelector(".calculateBtn");
 var billString = document.querySelector(".billString");
 var billTotals = document.querySelector(".billTotal");
 
-var calculateInstance = totalPhoneBill(); 
+var calculateInstance = totalPhoneBill();
 
-function totalPhoneBill(){
-
-  calculateInstance.setInputString(billString.value);
-  calculateInstance.billText();
+function totalPhoneBill(str){
+    
+  var strItems = str.split(",");
+  console.log(strItems);
   
-  calculateBtn.innerHTML = calculateInstance.billTotal().toFixed(2);
-  billTotals.classList.add(calculateInstance.totallevel());
-  // var strItems = str.split(",");
-  // console.log(strItems);
+  var total = 0;
   
-  // var total = 0;
+  strItems.forEach(strItem => {
+    strItem.trim();
+      if (strItem === "call"){
+        total += 2.75;
+      }
+      else if (strItem === "sms"){
+        total += 0.75;
+      }
+  });
   
-  // strItems.forEach(strItem => {
-  //   strItem.trim();
-  //     if (strItem === "call"){
-  //       total += 2.75;
-  //     }
-  //     else if (strItem === "sms"){
-  //       total += 0.75;
-  //     }
-  // });
-  
-  // return total;
+  return total;
 }
 
 function totalButton(){

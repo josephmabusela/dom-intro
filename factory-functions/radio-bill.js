@@ -2,25 +2,6 @@ function radioBill() {
     var radioStr;
     var call = 0;
     var sms = 0;
-   
-
-
-    // function radioItem(option){
-     
-
-    //     if(option == 'call'){
-    //         call += 2.75;
-    //         totals += 2.75;
-           
-    //     }
-    //     else if (option == 'sms'){
-    //      sms += 0.75;
-    //      totals += 0.75;
-         
-
-    //     }
-
-    // }
 
     function setRadioInput(str) {
         radioStr = str
@@ -37,15 +18,6 @@ function radioBill() {
     function sendSms() {
         sms += 0.75;
     }
-
-    // function radioCallTotal(){
-    //     return 'R' + call;
-
-    // }
-    // function radioSmsTotal(){
-    //     return 'R' + sms;
-
-    // }
 
     function getCallTotal() {
 
@@ -81,7 +53,5 @@ function radioBill() {
         getSmsTotal,
         radioTotal,
         levels
-       
-        
     }
 }
