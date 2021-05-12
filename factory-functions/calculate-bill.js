@@ -32,7 +32,7 @@ function CalculateBill() {
 
     function levels(){
 
-        if(getTotalCost() >= 20 && getTotalCost() <= 50){
+        if(getTotalCost() >= 20 && getTotalCost() <= 30){
             return "warning";
         }
 
