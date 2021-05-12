@@ -1,63 +1,55 @@
-  function textBill() {
-    var call = 0;
-    var sms = 0;
-    var total = 0;
-   
+function TextBill() {
+    var textStr;
+    var call = 0
+    var sms = 0
 
-
-    function billText(text){
-     
-        if(text =='call'){
-            call += 2.75;
-            total += 2.75;
-           
-        }
-        else if (text== 'sms'){
-         sms += 0.75;
-         total += 0.75;
-        }
-
+    function setStr(str){
+        textStr = str
     }
 
-    
-    function callTotal(){
-        return 'R' + call;
-
-    }
-    function smsTotal(){
-        return 'R' + sms;
-
-    }
-    
-
-    function billTotal(){
-        return 'R' + total;
-
-
+    function getStr(){
+        return textStr
     }
 
-    function level(){
-        if (total >= 30 && total < 50){
-            return 'warning';
-        }
-        else if (total >= 50) {
-            return 'critical';
-        }
-        else{
-            return '';
-        }
+    function makeCall(){
+        call += 2.75
     }
 
+    function sendSms(){
+        sms += 0.75
+    }
 
-    
-    return{
-       
-        billText, 
-        callTotal,
-        smsTotal, 
-        billTotal,
-        level
-       
+    function getCallCost() {
+        return call
+    }
+
+    function getSmsCost(){
+        return sms
+    }
+
+    function getTotalCost(){
+        return call + sms
+    }
+
+    function levels(){
         
+        if(getTotalCost() >= 30 && getCallCost() <= 50){
+            return 'warning'
+        }
+
+        if(getTotalCost() >= 50){
+            return 'danger'
+        }
+    }
+
+    return {
+        setStr,
+        getStr,
+        makeCall,
+        getCallCost,
+        sendSms,
+        getSmsCost,
+        getTotalCost,
+        levels
     }
 }

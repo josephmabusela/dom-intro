@@ -2,56 +2,28 @@ var calculateBtn = document.querySelector(".calculateBtn");
 var billString = document.querySelector(".billString");
 var billTotals = document.querySelector(".billTotal");
 
-var calculateInstance = totalPhoneBill();
+var calculateInstance = CalculateBill();
 
-function totalPhoneBill(str){
-    
-  var strItems = str.split(",");
-  console.log(strItems);
-  
-  var total = 0;
-  
-  strItems.forEach(strItem => {
-    strItem.trim();
-      if (strItem === "call"){
-        total += 2.75;
-      }
-      else if (strItem === "sms"){
-        total += 0.75;
-      }
-  });
-  
-  return total;
+//create the function that will be called when the calculate button is pressed
+function totalButton() {
+    calculateInstance.setInputString(billString.value);
+    calculateInstance.getInputString();
+    calculateInstance.splitString();
+    calculateBtn.innerHTML = calculateInstance.billTotal().toFixed(2);
+
+
+    calculateBtn.classList.add(calculateInstance.totallevel());
+    calculateBtn.classList.remove(calculateInstance.totallevel());
 }
 
-function totalButton(){
+calculateBtn.addEventListener("click", function() {
+
     
-  var str = billString.value; 
-  var bill = totalPhoneBill(str);
-  
-  var roundNum = bill.toFixed(2);
-
-  if (roundNum > 20.00) {
-    billTotals.classList.add("warning");
-    
-  }
-  if (roundNum > 30.00){
-    billTotals.classList.add("danger");
-    billTotals.classList.remove("warning");
-
-  }
-  if (roundNum < 30.00){
-    billTotals.classList.remove("danger");
-  }
-  if (roundNum < 20.00) {
-    billTotals.classList.remove("warning");
-    billTotals.classList.remove("danger");
-  }
-  else {
-    billTotals.classList.add("billTotals");   
-  }
-
-  billTotals.innerHTML = roundNum;
-}
-
-calculateBtn.addEventListener("click", totalButton)
+        calculateInstance.setInputString(billString.value);
+        calculateInstance.getInputString();
+        calculateInstance.splitString();
+        billTotals.innerHTML = calculateInstance.getTotalCost().toFixed(2);
+        
+        billTotals.classList.add(calculateInstance.addWarningClasses());
+        billTotals.classList.remove(calculateInstance.removeWarningClasses());
+});

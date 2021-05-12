@@ -5,45 +5,23 @@ var smsTotalOne = document.querySelector(".smsTotalOne");
 var totalOne = document.querySelector(".totalOne");
 var addToBillBtn = document.querySelector(".addToBillBtn");
 
-var callTotalBill = 0;
-var smsTotalBill = 0;
-var billTotalBill = 0;
+var textInstance = TextBill()
 
-//add an event listener for when the add button is pressed
-//in the event listener check if the value in the bill type textbox is 'sms' or 'call'
-// * add the appropriate value to the running total
-// * add nothing for invalid values that is not 'call' or 'sms'.
-// * display the latest total on the screen
-addToBillBtn.addEventListener("click", function(){
-
-    //var text = document.querySelector(".billTypeText").value;
-
-    if (billTypeText.value === "call"){
-        callTotalBill += 2.75;
-    }
-
-    else if (billTypeText.value === "sms"){
-        //var smsBill = smsTotalOne.innerHTML;
-        smsTotalBill += 0.75;
-        //smsTotalOne.innerHTML = smsTotal.toFixed(2);
-    }
+addToBillBtn.addEventListener("click", function() {
+    textInstance.setStr(billTypeText.value)
     
-
-    callTotalOne.innerHTML = callTotalBill.toFixed(2);
-    smsTotalOne.innerHTML = smsTotalBill.toFixed(2);
-
-    billTotalBill = smsTotalBill + callTotalBill;
-    totalOne.innerHTML = billTotalBill.toFixed(2);
-    
-    //var billTotal = callTotalOne.innerHTML + smsTotalOne.innerHTML;
-    //totalOne.innerHTML = billTotal.toFixed(2);
-
-    if (billTotalBill > 30){
-        totalOne.classList.add("warning");
-        //document.querySelector(".totalOne").classList.add("warning");
+    if(textInstance.getStr() === "call"){
+        textInstance.makeCall()
     }
-    if (billTotalBill > 50){
-        totalOne.classList.add("danger");
-        //document.querySelector(".totalOne").classList.add("danger");
+
+    if(textInstance.getStr() === "sms"){
+        textInstance.sendSms()
     }
-});
+
+    callTotalOne.innerHTML = textInstance.getCallCost().toFixed(2)
+    smsTotalOne.innerHTML = textInstance.getSmsCost().toFixed(2)
+    totalOne.innerHTML = textInstance.getTotalCost().toFixed(2)
+
+    totalOne.classList.add(textInstance.levels())
+
+})
