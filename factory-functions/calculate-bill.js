@@ -2,20 +2,20 @@ function CalculateBill() {
 
     var inputString;
     var splitStr;
-    const setInputString = (string) => {
-        inputString = string;
+    const setInput = (str) => {
+        inputString = str;
     }
 
-    function getInputString() {
+    function getInput() {
         return inputString;
     }
 
-    function splitString(){
+    function splitStr(){
         splitStr = inputString.split(",");
         return splitStr
     }
 
-    function getTotalCost(){
+    function getTotal(){
         var total = 0;
         for(var i = 0; i < splitStr.length; i++){
             var bill = splitStr[i].trim();
@@ -32,20 +32,20 @@ function CalculateBill() {
 
     function levels(){
 
-        if(getTotalCost() >= 20 && getTotalCost() <= 30){
+        if(getTotal() >= 20 && getTotal() <= 30){
             return "warning";
         }
 
-        if(getTotalCost() >= 30){
+        if(getTotal() >= 30){
             return "danger"
         }
     }
 
     return {
-        setInputString,
-        getInputString,
-        getTotalCost,
-        splitString,
+        setInput,
+        getInput,
+        getTotal,
+        splitStr,
         levels
         
     }
