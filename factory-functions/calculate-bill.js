@@ -1,8 +1,6 @@
 function CalculateBill() {
 
     var inputString;
-    var warningLevel = 20;
-    var criticalLevel = 30;
     var splitStr;
     const setInputString = (string) => {
         inputString = string;
@@ -13,7 +11,7 @@ function CalculateBill() {
     }
 
     function splitString(){
-        splitStr = inputString.split(',');
+        splitStr = inputString.split(",");
         return splitStr
     }
 
@@ -21,9 +19,11 @@ function CalculateBill() {
         var total = 0;
         for(var i = 0; i < splitStr.length; i++){
             var bill = splitStr[i].trim();
-           if(bill == 'call'){
+           if(bill === "call"){
                total += 2.75
-           }else if(bill == 'sms'){
+           }
+
+           if(bill === "sms"){
                total += 0.75
            }
         }
@@ -31,22 +31,23 @@ function CalculateBill() {
     }
 
     function addWarningClasses(){
-        if(getTotalCost() > 30){
-            return 'danger'
+
+        if(getTotalCost() >= 20 && getTotalCost() <= 50){
+            return "warning";
         }
 
-        if(getTotalCost() > 20){
-            return 'warning'
+        if(getTotalCost() >= 30){
+            return "danger"
         }
     }
 
     function removeWarningClasses(){
         if(getTotalCost() < 20){
-            return 'warning'
+            return "warning"
         }
         
         if(getTotalCost() < 30){
-            return 'danger'
+            return "danger"
         }
 
     }
