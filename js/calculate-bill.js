@@ -23,7 +23,7 @@ calculateBtn.addEventListener("click", function() {
         calculateInstance.getInputString();
         calculateInstance.splitString();
         billTotals.innerHTML = calculateInstance.getTotalCost().toFixed(2);
-        
-        billTotals.classList.add(calculateInstance.addWarningClasses());
-        billTotals.classList.remove(calculateInstance.removeWarningClasses());
+
+        //billTotals.classList.remove(calculateInstance.levels());
+        billTotals.classList.add(calculateInstance.levels());
 });

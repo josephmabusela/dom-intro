@@ -30,7 +30,7 @@ function CalculateBill() {
         return total;
     }
 
-    function addWarningClasses(){
+    function levels(){
 
         if(getTotalCost() >= 20 && getTotalCost() <= 50){
             return "warning";
@@ -41,22 +41,12 @@ function CalculateBill() {
         }
     }
 
-    function removeWarningClasses(){
-        if(getTotalCost() < 20){
-            return "warning"
-        }
-        
-        if(getTotalCost() < 30){
-            return "danger"
-        }
-
-    }
     return {
         setInputString,
         getInputString,
         getTotalCost,
         splitString,
-        addWarningClasses,
-        removeWarningClasses
+        levels
+        
     }
 }
